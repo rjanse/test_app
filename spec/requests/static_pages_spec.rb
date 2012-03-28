@@ -1,39 +1,25 @@
 require 'spec_helper'
 
 describe "StaticPages" do
-  describe "Home page" do
-    it "should have the h1 'Home'" do
-      visit '/static_pages/home'
-      page.should have_selector('h1', :text => 'Home')
-    end
-    
-    it "should have the title 'Home'" do
-      visit '/static_pages/home'
-      page.should have_selector('title', :text => 'Test App | Home')
-    end
-  end
-
-  describe "Help page" do
-    it "should have the h1 'Help'" do
-      visit '/static_pages/help'
-      page.should have_selector('h1', :text => 'Help')
-    end
-
-    it "should have the title 'Help'" do
-      visit '/static_pages/help'
-      page.should have_selector('title', :text => "Test App | Help")
-    end
-  end
   
-  describe "About page" do
-    it "should have the h1 'About'" do
-      visit '/static_pages/about'
-      page.should have_selector('h1', :text => 'About Us')
-    end
+  @static_pages = [
+                    {:title => "Home", :url =>"home"},
+                    {:title => "Help", :url => "help"},
+                    {:title =>"About Us", :url =>"about"},
+                    {:title =>"Contact", :url =>"contact"}
+                  ]
+  
+  @static_pages.each do |static_page|
+    describe "#{static_page[:title]} page" do
+      it "should have the h1 #{static_page[:title]}" do
+        visit "/static_pages/#{static_page[:url]}"
+        page.should have_selector('h1', :text => static_page[:title])
+      end
 
-    it "should have the title 'About Us'" do
-      visit '/static_pages/about'
-      page.should have_selector('title', :text => "Test App | About Us")
+      it "should have the title #{static_page[:title]}" do
+        visit "/static_pages/#{static_page[:url]}"
+        page.should have_selector('title', :text => "Test App | #{static_page[:title]}")
+      end
     end
-  end
+  end  
 end
