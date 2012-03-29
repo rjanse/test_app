@@ -1,25 +1,34 @@
 require 'spec_helper'
 
-describe "StaticPages" do
-  
-  @static_pages = [
-                    {:title => "Home", :url =>"home"},
-                    {:title => "Help", :url => "help"},
-                    {:title =>"About Us", :url =>"about"},
-                    {:title =>"Contact", :url =>"contact"}
-                  ]
-  
-  @static_pages.each do |static_page|
-    describe "#{static_page[:title]} page" do
-      it "should have the h1 #{static_page[:title]}" do
-        visit "/static_pages/#{static_page[:url]}"
-        page.should have_selector('h1', :text => static_page[:title])
-      end
+describe "Static pages" do
 
-      it "should have the title #{static_page[:title]}" do
-        visit "/static_pages/#{static_page[:url]}"
-        page.should have_selector('title', :text => "Test App | #{static_page[:title]}")
-      end
-    end
-  end  
+  subject { page }
+
+  describe "Home page" do
+    before { visit root_path }
+
+    it { should have_selector('h1',    :text => 'Sample App') }
+    it { should have_selector('title', :text => full_title('')) }
+  end
+
+  describe "Help page" do
+    before { visit help_path }
+
+    it { should have_selector('h1',    :text => 'Help') }
+    it { should have_selector('title', :text => full_title('Help')) }
+  end
+
+  describe "About page" do
+    before { visit about_path }
+
+    it { should have_selector('h1',    :text => 'About') }
+    it { should have_selector('title', :text => full_title('About Us')) }
+  end
+
+  describe "Contact page" do
+    before { visit contact_path }
+
+    it { should have_selector('h1',    :text => 'Contact') }
+    it { should have_selector('title', :text => full_title('Contact')) }
+  end
 end
