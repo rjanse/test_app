@@ -30,6 +30,7 @@ gem 'jquery-rails', '2.0.0'
 
 group :test do
   gem 'capybara'
+  gem 'factory_girl_rails', '1.4.0'
 end
 
 # To use ActiveModel has_secure_password
