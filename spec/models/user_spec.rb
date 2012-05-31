@@ -11,8 +11,14 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:remember_token)}
   it { should be_valid }
-
+  
+  describe "remember_token" do
+    before { @user.save }
+    its(:remember_token) {should_not be_blank} # Is equivalent to: it { @user.remember_token.should_not be_blank }
+  end
+  
   describe "when the password is to short" do
     before{@user.password = @user.password_confirmation = "a" * 5}
     it { should be_invalid }

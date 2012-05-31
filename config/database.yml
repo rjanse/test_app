@@ -6,7 +6,7 @@ development:
   username: developer
   password:
 
-test: &TEST
+test: &test
   adapter: postgresql
   encoding: utf8
   database: testapp_test
@@ -22,3 +22,6 @@ production:
   username: developer
   password:
 
+
+cucumber:
+  <<: *test
